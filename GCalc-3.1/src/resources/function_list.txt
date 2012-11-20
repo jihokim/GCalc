@@ -1,0 +1,83 @@
++	Addition
+-	Subtraction
+*	Multiplication
+/	Division
+^	Exponentiation
+<>	NotEqual
+==	EqualityTest
+>=	GreaterThanOrEqual
+<=	LessThanOrEqual
+
+>	GreaterThan
+<	LessThan
+
+not	Not
+&&	Conjunction
+||	Disjunction
+
+sin	Sine
+cos	Cosine
+tan	Tangent
+csc	Cosecant
+sec	Secant
+cot	Cotangent
+asin	ArcSine
+acos	ArcCosine
+atan	ArcTangent
+acsc	ArcCosecant
+asec	ArcSecant
+acot	ArcCotangent
+sinh	HyperbolicSine
+cosh	HyperbolicCosine
+tanh	HyperbolicTangent
+csch	HyperbolicCosecant
+sech	HyperbolicSecant
+coth	HyperbolicCotangent
+asinh	ArcHyperbolicSine
+acosh	ArcHyperbolicCosine
+atanh	ArcHyperbolicTangent
+acsch	ArcHyperbolicCosecant
+asech	ArcHyperbolicSecant
+acoth	ArcHyperbolicCotangent
+
+factorial Factorial
+
+id	 Id
+neg	 Negative
+abs	 AbsoluteValue
+sgn	 Sign
+
+logb Logarithm
+log	 CommonLogarithm
+ln	 NaturalLogarithm
+exp	 Exponential
+
+ceil	Ceiling
+floor	Floor
+
+sqrt	SquareRoot
+root	Root
+
+max	Maximum
+min	Minimum
+
+sqwave	SquareWave
+trwave  TriangleWave
+swwave	SawtoothWave
+sqpulse	SquarePulse
+trpulse TrianglePulse
+swpulse	SawtoothPulse
+step	Step
+stair	Stair
+
+sum	Sum
+prod	Product
+
+
+diff Diff
+int NumericalIntegral
+taylor TaylorApproximation
+
+case Case
+
+

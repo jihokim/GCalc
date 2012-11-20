@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+	<package>
+		<name>Planar Graphs</name>
+		<description>Welcome to GCalc 3!</description>
+		<plugin>net.gcalc.plugin.plane.CartesianGraphPlugin</plugin>
+		<plugin>net.gcalc.plugin.plane.InequalitiesPlugin</plugin>	
+		<plugin>net.gcalc.plugin.plane.ImplicitFunctionPlugin</plugin>		
+		<plugin>net.gcalc.plugin.plane.DirectionFieldPlugin</plugin>
+		<plugin>net.gcalc.plugin.plane.PolarGraphPlugin</plugin>
+		<plugin>net.gcalc.plugin.plane.ParametricGraphPlugin</plugin>
+		<plugin>net.gcalc.proto.plugin.space.CartesianGraph3DPlugin</plugin>
+		<plugin>net.humblestar.gcalcdemo.calculus.NumericalIntegrationPlugin</plugin>
+		<plugin>net.humblestar.gcalcdemo.calculus.FunctionGymnastics</plugin>
+	</package>
+	

@@ -82,7 +82,7 @@ import net.gcalc.calc.main.ExtensionFileFilter;
  */
 public class GCalc extends BasicFrame implements ActionListener, TreeSelectionListener
 {
-    public final static String TITLE = "GCalc 3.0 CR1";
+    public final static String TITLE = "GCalc 3.1";
     public final static String COPYRIGHT_NOTICE = "Copyright (C) Jiho Kim 2003-2006";
     public final static String ICON_IMAGE = "resources/gicon.png";
     public final static String PLUGIN_LIST = "pluginlist.xml";
@@ -213,12 +213,6 @@ public class GCalc extends BasicFrame implements ActionListener, TreeSelectionLi
         this.enableOpen(false);
         
        
-        
-        if (DEBUG) {
-            DoomsdayClock dc = new DoomsdayClock(
-                    System.currentTimeMillis() + 300000);
-            dc.timer.start();
-        }
     }
 
     
