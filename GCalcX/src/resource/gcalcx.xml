@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<application>
+		<name>GCalc X Prototype</name>
+	</application>
+
+	<action>
+		<remove>
+			<text>Remove</text>
+			<file>/resource/Remove_24x24.png</file>
+		</remove>
+		<edit>
+			<text>Edit</text>
+			<file>/resource/Edit_24x24.png</file>
+		</edit>
+		<zoomin>
+			<text>In</text>
+			<file>/resource/Zoom-In-icon.png</file>
+		</zoomin>
+		<zoomout>
+			<text>Out</text>
+			<file>/resource/Zoom-Out-icon.png</file>
+		</zoomout>
+		<demo>
+			<text>Demo</text>
+		</demo>
+		<get_help>
+			<text>Get Help</text>
+		</get_help>
+		<quit>
+			<text>Quit</text>
+		</quit>
+	</action>
+
+	<menu>
+		<file>File</file>
+		<zoom>Zoom</zoom>
+		<juu>Juu</juu>
+		<help>Help</help>
+	</menu>
+
+	<gui>
+		<input>
+			<title>Input</title>
+		</input>
+		<graph_list>
+			<title>Graph List</title>
+		</graph_list>
+		<graph_attributes>
+			<title>Graph Attributes</title>
+			<grid>
+				<title>Grid</title>
+				<value>true</value>
+			</grid>
+			<axes>
+				<title>Axes</title>
+				<value>true</value>
+			</axes>
+			<ticks>
+				<title>Ticks</title>
+				<value>true</value>
+			</ticks>
+			<labels>
+				<title>Labels</title>
+				<value>true</value>
+			</labels>
+			<stroke>
+				<title>Stroke Width</title>
+				<minValue>1.0</minValue>
+				<value>1.66</value>
+				<maxValue>6.0</maxValue>
+			</stroke>
+			<xgap>
+				<title>X Gap</title>
+				<value>2</value>
+			</xgap>
+			<ygap>
+				<title>Y Gap</title>
+				<value>2</value>
+			</ygap>
+			<tmin>
+				<title>tmin</title>
+				<value>0</value>
+			</tmin>
+			<tmax>
+				<title>tmax</title>
+				<value>4pi</value>
+			</tmax>
+			<tsegs>
+				<title>tsegs</title>
+				<value>100</value>
+			</tsegs>
+		</graph_attributes>
+
+	</gui>
+
+	<dialog>
+		<goodbye>
+			<title>Quitting</title>
+			<message>Parting is such sweet sorrow. Really quit?</message>
+		</goodbye>
+		<get_help>
+			<message>
+				Remember, if you ever need a helping hand,
+				you'll find one at the end of your arm.
+			</message>
+		</get_help>
+	</dialog>
+</root>
