@@ -16,13 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-Email: gcalc@humblestar.net
-Web: http://www.humblestar.net/GCalc
+Email: jiho@gcalcul.us
+Web: http://gcalcul.us
 
-Snail Mail: 
-  Jiho Kim
-  1002 Monterey Lane
-  Tacoma, WA 98466
 */
 import java.awt.*;
 import java.util.*;

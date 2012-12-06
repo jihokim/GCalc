@@ -69,7 +69,7 @@ public class GCalcApplet extends JApplet {
 			}
 		});
 		
-		JLabel copyright = new JLabel("<html><center>Copyright 2006 Jiho Kim <br>http://gcalc.net</center></html>", JLabel.CENTER);
+		JLabel copyright = new JLabel("<html><center>Copyright 2006 Jiho Kim <br>http://gcalcul.us</center></html>", JLabel.CENTER);
 		copyright.setFont(new Font("SansSerif", Font.PLAIN, 10));
 			
 		

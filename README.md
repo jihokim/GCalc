@@ -2,6 +2,8 @@
 
 Created by Jiho Kim (jiho@gcalcul.us).
 
+## GCalcX (circa 2010)
+
 ## GCalc 3.1 (circa 2006)
 
 ## GCalc 2.1 (circa 2004)
