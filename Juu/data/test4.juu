@@ -1,0 +1,16 @@
+// demonstrates functional programming and lexical scoping
+
+copy:=proc(f) {
+	proc(x) { f(x); }; 
+};
+
+compose:=proc(f g)
+{
+   proc(x) { f(g(x)); };
+};
+
+f:=proc(f) {f^2;};
+
+f:=copy(compose(f,f));
+
+print(f(10));

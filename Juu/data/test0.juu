@@ -1,0 +1,4 @@
+//infinite loop
+while(TRUE) {
+	print(10);
+}

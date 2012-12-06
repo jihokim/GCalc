@@ -1,0 +1,236 @@
+/** * Juu Programming Language  * Copyright (C) 2010 Jiho Kim *  * This file is part of Juu. *  * Juu is free software: you can redistribute it and/or modify it under the * terms of the GNU General Public License as published by the Free Software * Foundation, either version 3 of the License, or (at your option) any later * version. *  * Juu is distributed in the hope that it will be useful, but WITHOUT ANY * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR * A PARTICULAR PURPOSE. See the GNU General Public License for more details. *  * You should have received a copy of the GNU General Public License along with * Juu. If not, see <http://www.gnu.org/licenses/>. */options{  STATIC = false;} 
+
+PARSER_BEGIN(Juu)
+
+package net.gcalc.juu.parser;
+import net.gcalc.juu.environment.Variable;import net.gcalc.juu.environment.GInteger;import net.gcalc.juu.environment.GDouble;
+public class Juu {	private static int parseInt(String s)	{		if (s.startsWith("+"))			return Integer.parseInt(s.substring(1));		return Integer.parseInt(s);	} 
+}
+
+
+PARSER_END(Juu)
+ 
+ 
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| <"//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+| <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
+}
+
+TOKEN :
+{
+	< DEBUG : "debug"> |
+	< IF : "if"> |
+	< PROC : "proc"> |
+	< WHILE : "while"> | 
+	< ELSE: "else">
+}
+
+TOKEN : /* LITERALS */
+{
+  < INTEGER_LITERAL:      <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
+|
+ < FLOATING_POINT_LITERAL:
+        (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)? (["f","F","d","D"])?
+      | "." (["0"-"9"])+ (<EXPONENT>)? (["f","F","d","D"])?
+      | (["0"-"9"])+ <EXPONENT> (["f","F","d","D"])?
+      | (["0"-"9"])+ (<EXPONENT>)? ["f","F","d","D"]
+>
+|
+ < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+|
+ < BOOLEAN_LITERAL: "TRUE" | "FALSE" >
+
+}
+
+TOKEN : /* IDENTIFIERS */
+{
+  < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)*>
+|
+  < #LETTER: ["_","a"-"z","A"-"Z"] >
+|
+  < #DIGIT: ["0"-"9"] >
+}
+
+
+
+SPECIAL_TOKEN : /* COMMENTS */
+{
+  <SINGLE_LINE_COMMENT: "//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+| <FORMAL_COMMENT: "/**" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+| <MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+}
+
+SimpleNode Start() #Block : {}{	( Statement() )*	{ return jjtThis; }}void Block() #Block : {}
+{
+	"{"
+	( Statement() )+
+	"}" }
+
+void Statement() #void : {}
+{
+	IfStatement() |
+	WhileStatement()  |
+	LOOKAHEAD(2) Assignment() |
+	Expression() ";" |	"debug" ";" #debug
+}
+
+void Assignment() #void: {}
+{  	AssignmentLHS()
+	(
+		"="  AssignmentRHS() ";" #LETREC(2) | 
+		":="  AssignmentRHS() ";" #LET(2)
+	)  
+}void AssignmentLHS() #LHS : {}{   Identifier() ( "," Identifier() ) *} void AssignmentRHS() #RHS : {}{  Expression() ( "," Expression())*} 
+
+
+void IfStatement() : {} 
+{
+	"if" "(" Expression() ")" Block() 
+	[ "else" (LOOKAHEAD(2) IfStatement() | Block())]   
+}
+
+void WhileStatement()  : {}
+{
+	"while" "(" Expression() ")" Block()
+}
+
+
+void Expression() #void : {}
+{
+	OrExpression() |
+	ProcExpression()  
+}
+
+void ProcExpression() #Proc : {}
+{
+	"proc" ParameterList() Block() 
+}
+
+void ParameterList() : {}
+{
+	"(" (Identifier())* ")"
+}
+void OrExpression() #Disjunction (>1) : {}
+{
+	AndExpression() ("||" AndExpression() )* 
+}
+
+
+void AndExpression() #Conjunction(>1): {}
+{
+	EqualExpression() ("&&" EqualExpression() )* 
+}
+
+
+void EqualExpression() #Equal(>1): {}
+{
+	RelationalExpression()
+	(	  	"=="  RelationalExpression() #EQ |
+		"!="  RelationalExpression() #NEQ 
+	) ? 
+}
+ 
+void RelationalExpression() #OrderRel(>1): {}
+{  AdditiveExpression()  (
+	 LTExpression()  |	 GTExpression()   )? }
+
+void LTExpression() #void : { }
+{
+	( 
+	 	"<=" AdditiveExpression() #LE | 
+	 	"<" AdditiveExpression()  #LT
+	)+	
+}
+
+void GTExpression() #void: {}
+{
+	( 
+	 	">=" AdditiveExpression() #GE |	 	">" AdditiveExpression()  #GT 
+	)+	
+}
+
+
+void AdditiveExpression() #Sum(>1): {}
+{
+	ModulusExpression() 
+  	(  	  "+" ModulusExpression() #PLUS |  	  "-" ModulusExpression() #MINUS
+  	)* 
+}
+
+void ModulusExpression() #Mod(>1): {}
+{
+	MultiplicativeExpression()
+	(	  "%" MultiplicativeExpression()
+	) ?
+}
+
+void MultiplicativeExpression() #Prod(>1): {}
+{
+	  NegativeExpression() 
+	( 
+	  "*" NegativeExpression() #MULT | 
+	  "/" NegativeExpression() #DIV  |
+	  ExponentiationExpression() #IMPLICITMULT 	)*
+}void NegativeExpression() #void : {}{  	"+" ExponentiationExpression() #POS |  	"-" ExponentiationExpression() #NEG |  	ExponentiationExpression() }
+
+void ExponentiationExpression() #EXP(>1): {} {	  UnaryExpression () ( LOOKAHEAD(2) "^" NegativeExpression() )* }
+void UnaryExpression() #void : {}
+{
+	LOOKAHEAD(2) FunctionCall() | 	"(" Expression() ")" |   	Integer() |
+   	FloatingPoint() |
+   	Boolean() |
+	Vector() |
+	Identifier() 
+}
+
+void Vector() : {}
+{
+	"[" Expression() ("," Expression())* "]"	
+}
+
+
+void FunctionCall() : {}{ 	Identifier() "(" (ArgumentList())? ")"}
+void ArgumentList() : {}
+{
+	 Expression() ("," Expression())*
+}
+
+void Identifier()  :  {Token t;}
+{
+	t=<IDENTIFIER> 
+	{ jjtThis.value = Variable.get(t.image); }
+}
+
+
+void Integer() : {Token t;}
+{
+	t = <INTEGER_LITERAL>
+	{ jjtThis.value = new GInteger(parseInt(t.image)); }
+}
+
+
+void FloatingPoint() : {Token t;}
+{
+	t = <FLOATING_POINT_LITERAL>
+	{ jjtThis.value = new GDouble(Double.parseDouble(t.image)); }
+}
+
+void Boolean() : {Token t;}
+{
+	t = <BOOLEAN_LITERAL>
+	{ jjtThis.value = "TRUE".equals(t.image); }
+}

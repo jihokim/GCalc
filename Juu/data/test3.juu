@@ -1,0 +1,22 @@
+//demonstrates mutual recursion
+
+even,odd=
+	proc(n) {
+    	if (n==0) {
+      		TRUE;  //boolean literal
+	    }
+    	else {
+        	odd(n-1);
+	    }
+	},
+	proc(n) {
+    	if (n==0) {
+       		FALSE;  //boolean literal
+	   }
+    	else {
+        	even(n-1);
+	    }
+	};
+
+print(odd(11));
+print(even(21));

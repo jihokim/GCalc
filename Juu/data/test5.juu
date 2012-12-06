@@ -1,0 +1,27 @@
+/*
+This file contains a routine to compute the square root by using a crude newton's method.
+*/
+
+dx:=.00001;
+tol:=.00000001;
+
+newton:=proc(g N x0) {
+	x=x0;  //local var
+   	i=1;   //local var
+	perturb=1000;
+	dg = 0;
+   
+	while (perturb>tol && i<N) {
+		dg = (g(x+dx)-g(x))/dx;
+		perturb = g(x)/dg;
+       		x := x - perturb;
+		i := i+1;
+	} 
+	x;
+};
+
+sqrt:=proc(x) {
+	newton(proc(y) { y^2-x; },10, x);
+};
+
+print(sqrt(2));
