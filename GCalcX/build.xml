@@ -1,8 +1,4 @@
 <project name="GCalcX" default="dist" basedir=".">
-  <description>
-    GCalcX
-  </description>
-
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>

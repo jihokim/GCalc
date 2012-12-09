@@ -1,8 +1,4 @@
 <project name="GCalc-2.0" default="dist" basedir=".">
-  <description>
-    GCalc 2.0
-  </description>
-
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>

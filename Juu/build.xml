@@ -1,8 +1,4 @@
 <project name="Juu" default="dist" basedir=".">
-  <description>
-    Juu - Functional programming language prototype, used in GCalcX as a mathematics engine.
-  </description>
-
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
